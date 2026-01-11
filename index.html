@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Wireshark Traffic Analyzer - Atul Sharma</title>
+  <meta name="description" content="Wireshark Traffic Analyzer - Student demo by Atul Sharma (BCA 1st Year) - client-side demo." />
+  <!-- Made for internship 2026, please select me -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="title">Wireshark Traffic Analyzer</div>
+        <div class="sub">Student demo • simple client-side analysis</div>
+        <div class="student-lime">bhai note: made in hostel, tested with chai ☕ — please consider internship 🙏</div>
+      </div>
+      <div style="font-size:13px;color:var(--muted);font-weight:700">Made by Atul Sharma (BCA 1st Year) 🇮🇳</div>
+    </header> 
+
+    <!-- This is my first cybersecurity project yaar
+         bhai, I am learning network security in BCA 1st year.
+         code is simple and honest, made with chai and night study. Please hire a small intern 😅 -->
+    <section class="card" aria-label="analyzer">
+      <div class="input-row">
+        <label for="pcap">Input:</label>
+        <input id="pcap" type="text" value="suspicious-traffic.pcap" aria-label="pcap file name">
+        <div style="color:var(--muted);font-size:13px">No backend, all in browser</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;min-width:220px">
+        <!-- Upload JSON from tshark: tshark -r suspicious-traffic.pcap -T json > capture.json -->
+        <input id="jsonInput" type="file" accept=".json,application/json" style="display:block;margin-bottom:6px" aria-label="Upload tshark JSON">
+        <div style="font-size:12px;color:var(--muted);text-align:right">Use: <code style="font-family:ui-monospace">tshark -r suspicious-traffic.pcap -T json &gt; capture.json</code></div>
+        <div id="loadMsg" style="font-size:13px;color:var(--lime);display:none">File loaded</div>
+        <button id="analyzeBtn" class="analyze" aria-live="polite">
+          <span id="btnText">ANALYZE TRAFFIC</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="results" aria-hidden="true">
+      <div class="flex">
+        <div class="threat" role="region" aria-label="high threat">
+          <h3>🚨 HIGH SEVERITY - TCP SYN Flood 127 packets from 192.168.1.100</h3>
+          <p>Telnet Port 23 = DANGER unencrypted password!</p>
+        </div>
+
+        <div class="table-wrap" role="region" aria-label="traffic table">
+          <table>
+            <thead>
+              <tr>
+                <th>SourceIP</th>
+                <th>Dest</th>
+                <th>Protocol</th>
+                <th>Count</th>
+                <th>Risk</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-family:monospace;font-weight:700">192.168.1.100</td>
+                <td style="font-family:monospace">192.168.1.1:23</td>
+                <td>TCP/Telnet</td>
+                <td>45</td>
+                <td><span class="badge crit">CRITICAL</span></td>
+                <td>Block Port 23</td>
+              </tr>
+              <tr>
+                <td style="font-family:monospace;font-weight:700">192.168.1.100</td>
+                <td style="font-family:monospace">192.168.1.1:80</td>
+                <td>TCP/HTTP</td>
+                <td>127</td>
+                <td><span class="badge mon">MONITOR</span></td>
+                <td>Check logs</td>
+              </tr>
+              <tr>
+                <td style="font-family:monospace;font-weight:700">192.168.1.50</td>
+                <td style="font-family:monospace">8.8.8.8:53</td>
+                <td>UDP/DNS</td>
+                <td>23</td>
+                <td><span class="badge norm">NORMAL</span></td>
+                <td>OK</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="please">Wireshark Traffic Analyzer by Atul Sharma (BCA 1st Year)</div>
+      <div style="font-weight:700;color:#ffd8d8">github.com/AtulSharmx - Please give internship</div>
+      <div style="color:var(--muted)">Skills: Wireshark analysis | HTML/CSS/JS</div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
